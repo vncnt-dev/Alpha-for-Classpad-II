@@ -1,0 +1,184 @@
+'Vincent Pelz v1.0
+SetFolder tmp
+Local xvek,yvek,zvek,vek1,vek2,vek3,wsolve,multi,wmulti,lsg,vgeg,lsgs,vekop,pk1,pk2,pk3,pk4
+SetStandard
+ClrText
+Print "Sind Punkte oder Vekt. geg?"
+Print "Punkte        1"
+Print "Vektoren      2"
+Input vekop,"Punkte oder Vektoren?"
+ClrText
+
+'Punkte gegeben: 
+if vekop=1
+then
+Print "Für den Solver muss die"
+Print "gesuchte Variable x sein"
+Print ""
+Print "Startpunkt:"
+Print "(von dem später alle Vekt starten)"
+
+Input xvek,"x","Startpunkt"
+Input yvek,"y","Startpunkt"
+Input zvek,"z","Startpunkt"
+[[xvek],[yvek],[zvek]]⇒pk1
+ClrText
+Print "Für den Solver muss die"
+Print "gesuchte Variable x sein"
+
+Input xvek,"x","Punkt2"
+Input yvek,"y","Punkt2"
+Input zvek,"z","Punkt2"
+[[xvek],[yvek],[zvek]]⇒pk2
+
+Input xvek,"x","Punkt3"
+Input yvek,"y","Punkt3"
+Input zvek,"z","Punkt3"
+[[xvek],[yvek],[zvek]]⇒pk3
+
+Input xvek,"x","Punkt4"
+Input yvek,"y","Punkt4"
+Input zvek,"z","Punkt4"
+[[xvek],[yvek],[zvek]]⇒pk4
+
+pk2-pk1⇒vek1
+pk3-pk1⇒vek2
+pk4-pk1⇒vek3
+
+'Vektoren gegeben: 
+elseif vekop=2
+then
+ClrText
+Print "Gib nun die Vektoren an"
+Print " "
+Print "Beachte: alle Vektoren müssen den"
+Print "selben Startpunkt haben"
+print " "
+Print "Für den Solver muss die"
+Print "gesuchte Variable x sein"
+Input xvek,"x","Vektor1"
+Input yvek,"y","Vektor1"
+Input zvek,"z","Vektor1"
+[[xvek],[yvek],[zvek]]⇒vek1
+
+Input xvek,"x","Vektor2"
+Input yvek,"y","Vektor2"
+Input zvek,"z","Vektor2"
+[[xvek],[yvek],[zvek]]⇒vek2
+
+Input xvek,"x","Vektor3"
+Input yvek,"y","Vektor3"
+Input zvek,"z","Vektor3"
+[[xvek],[yvek],[zvek]]⇒vek3
+elseif falsche=Eingabe
+then
+ifend
+
+ClrText
+Print "Wähle einen Multiplicator"
+Print "Spat,Quander       (1)     1"
+Print "Vierseitige Pyramide (1/3)    2"
+Print "Dreiseitige Pyramide (1/6)    3"
+Print "anderen 4"
+Input wmulti,"Multiplikator (Wähle aus Auswahl)","Bitte Wählen"
+ClrText
+If wmulti=1
+Then
+1⇒multi
+
+ElseIf wmulti=2
+Then
+1/3⇒multi
+
+ElseIf wmulti=3
+Then
+1/6⇒multi
+
+ElseIf wmulti=4
+Then
+ClrText
+Print "Wähle einen Custom-Multiplicator"
+Input multi,"Welchen Multiplikator","Bitte Wählen"
+IfEnd
+
+ClrText
+If multi≠1
+Then
+Print "Multiplikator:"
+Print multi
+Ifend
+abs(dotP(crossP(vek1,vek2),vek3)×multi)⇒lsg
+If multi≠1
+Then
+Print "V=(|vek1×vekt2|*vek3)×Multiplikator"
+Else
+Print "V=(|vek1×vekt2|*vek3)"
+Ifend
+
+if vekop=1
+then
+Print "geg. Punkte:"
+Print pk1
+Print pk2
+Print pk3
+Print pk4
+ifend
+
+Print "Vektoren:"
+Print vek1
+Print vek2
+Print vek3
+
+Print "----------------"
+Print "Lösungen"
+Print lsg
+Print "oder als Decimalzahl"
+SetDecimal
+Print lsg
+Print"  "
+
+
+Print "Menü/Solver ▸"
+Pause
+ClrText
+Print "Menü 1"
+Print "Solver 2"
+Input wsolve,"Zum Menü oder Solver?","Bitte Wählen"
+
+'Solve Funktion:
+If wsolve=2
+then
+ClrText
+Print "Volumen angeben"
+
+Input vgeg,"Wie lautet das Volumen","Volumen?"
+
+solve(vgeg=abs(lsg))⇒lsgs
+Print "Das Gegebene Volumen:"
+Print vgeg
+If multi≠1
+Then
+Print "Vgeg=|vek1×vekt2|*vek3)×Multiplikator"
+Else
+Print "Vgeg=|vek1×vekt2|*vek3)"
+Ifend
+
+Print "----------------"
+SetStandard
+Print "Lösungen"
+Print lsgs
+Print "oder als Decimalzahl"
+SetDecimal
+Print lsgs
+Pause
+Print "Zum Menü mit ▸"
+
+
+Setfolder main
+IfEnd
+
+
+
+
+
+

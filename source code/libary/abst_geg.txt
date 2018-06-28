@@ -1,0 +1,166 @@
+'Vincent Pelz v1.0
+SetFolder tmp
+local w,w2,px,py,pz,p1,ea,eb,ec,ed,abst,vekp,p21,p22,ebn,xges,x,ebn2,ed1,ed2,vekn
+
+ClrText
+Print "Punkt-Ebene 1"
+Print "Ebene-Ebene 2"
+Input w,"Punkt-Ebene oder Ebene-Ebene"
+ClrText
+
+'Punkt-Ebene:
+if w=1
+then
+Print "Liegt der geg.Pkt.auf der Ebene?"
+Print " "
+Print "JA: Der geg.Pkt.auf der Ebene: 1"
+Print " "
+Print "Nein: Eine Koordinate des Pkt "
+Print "mit dem geg.Abstand wird ges.: 2"
+
+Input w2,"Liegt der geg. Pkt. auf der Ebene?"
+ClrText
+Print "Der gegebene Abstand?"
+Input abst,"Abstand?"
+ClrText
+'Eingabe der Ebenengleichung:
+Print "Ebene ax+by+cz=d"
+Input ea,"a","Ebene ax+by+cz=d"
+Input eb,"b","Ebene ax+by+cz=d"
+Input ec,"c","Ebene ax+by+cz=d"
+Input ed,"d","Ebene ax+by+cz=d"
+ClrText
+Print "Die Koordinaten des geg. Pkt."
+
+if w2=1
+then
+Print "auf der Ebene"
+elseif w2=2
+then
+Print "!Nutze x als Parameter!"
+ifend
+
+'Eingabe der Koordinaten Punkte:
+Input px,"x","Punkt"
+Input py,"y","Punkt"
+Input pz,"z","Punkt"
+ClrText
+'Skalarprodukt:
+ea×x+eb×y+ec×z=ed⇒ebn
+if w2=1
+then
+'Ortsvektor 0P:
+[[px],[py],[pz]]⇒p1
+'Normalenvektor
+[[ea],[eb],[ec]]⇒vekn
+'Berechnung Vektor PP‘:
+abst×((vekn)/√(ea^2+eb^2+ec^2))⇒vekp
+'Berechnung beider Punkte mit gegebenen Abstand:
+p1+vekp⇒p21
+p1-vekp⇒p22
+
+
+elseif w2=2
+then
+'Berechnung des Parameters:
+solve(abs((ea×px+eb×py+ec×pz-ed)/(√(ea^2+eb^2+ec^2)))=abst)⇒xges
+ifend
+
+'Ausgabe der Ergebnisse:
+SetDecimal
+ClrText
+Print "Ebene"
+Print ebn
+Print "Abstand d(P/E)="
+Print abst
+Print " "
+If w2=1
+then
+Print "Rechenweg:"
+Print "geg.Pkt.±(d(P;E)×(ñ/√|ñ|)"
+Print "ñ=Normalenvekt. d. Ebene "
+Print " "
+Print "Punkt 1 im geg. Abstand"
+Print p21
+Print "Punkt 2 im geg. Abstand"
+Print p22
+
+elseif w2=2
+then
+Print "Rechenweg:"
+Print "solve(d(P;E)=(ax+by+cz-d)"
+Print "/(√(a^2+b^2+c^2))⇒"
+Print "Gesuchte Variable"
+Print xges
+ifend
+
+'Ebene-Ebene:
+elseif w=2
+then
+ClrText
+Print "Der gegebene Abstand?"
+Input abst,"Abstand?"
+ClrText 
+Print "Ebene ax+by+cz=d"
+Input ea,"a","Ebene ax+by+cz=d"
+Input eb,"b","Ebene ax+by+cz=d"
+Input ec,"c","Ebene ax+by+cz=d"
+Input ed,"d","Ebene ax+by+cz=d"
+ClrText
+Print "Koordinaten eines beliebigen Pkt."
+Print "Zwei können frei gewählt werden"
+Print "Eine muss x sein"
+
+Input px,"x","Punkt"
+Input py,"y","Punkt"
+Input pz,"z","Punkt"
+ClrText
+
+Print "Der gegebene Abstand?"
+Input abst,"Abstand?"
+ClrText
+'Eingabe der Ebenengleichung:
+Print "Ebene ax+by+cz=d"
+Input ea,"a","Ebene ax+by+cz=d"
+Input eb,"b","Ebene ax+by+cz=d"
+Input ec,"c","Ebene ax+by+cz=d"
+Input ed,"d","Ebene ax+by+cz=d"
+ClrText
+Print "Die Koordinaten des geg. Pkt."
+
+if w2=1
+then
+Print "auf der Ebene"  
+elseif w2=2
+then
+
+getRight(solve(abs((ea×px+eb×py+ec×pz-ed)/(√(ea^2+eb^2+ec^2)))=abst))⇒xges
+min(xges)⇒x
+'Berechnung von d der Ebenengleichung:
+ea×px+eb×py+ec×pz⇒ed1
+'Aufstellen der Ebenengleichung:
+ea×X+eb×y+ec×z=ed1⇒ebn
+
+Print "Rechenweg:"
+Print "solve(d(P;E)=(ax+by+cz-d)"
+Print "/(√(a^2+b^2+c^2))⇒"
+Print "ges. Koordinate des geg. Pkt."
+Print " "
+Print "Pkt in ax+by+cz einsetzen und"
+Print "d ausrechnen"
+Print "E:ax+by+cz=d"
+Print " "
+Print "ges. Koordinate des geg. Pkt.;"
+Print xges
+Print "Ebene 1"
+Print ebn
+max(xges)⇒x
+ea×px+eb×py+ec×pz⇒ed2
+ea×X+eb×y+ec×z=ed2⇒ebn2
+Print "Ebene 2"
+Print ebn2
+ifend
+SetFolder main
+Print " "
+Print "Zum Menü mit ▸"
+pause  

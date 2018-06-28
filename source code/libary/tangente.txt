@@ -1,0 +1,73 @@
+'Vincent Pelz v1.0
+SetFolder main
+local fun,fun1,pnktx,pnkty,pnktxt,pnktyt,tfun,pnktxt2,pnktyt2,tfun2,two
+0⇒two
+ClrText
+ 
+Print "Punkt"
+Input pnktx,"x","Punkt"
+Input pnkty,"y","Punkt"
+ClrText
+Print "Funktion f(x)"
+Input fun,"f(x)","Funktion"
+ClrText
+SetFolder tmp
+'1. Ableitung:
+expand(diff(fun,x))⇒fun1
+'t(x) berechnen:
+getRight(solve(fun1=(pnkty-fun)/(pnktx-x),x))⇒pnktxt
+ 
+'2 Tangenten?:
+if min(pnktxt)≠max(pnktxt)
+then 
+1⇒two
+max(pnktxt)⇒pnktxt2
+fun|x=pnktxt2⇒pnktyt2
+tanLine(fun,x,pnktxt2)⇒tfun2
+ifend
+
+min(pnktxt)⇒pnktxt
+fun|x=pnktxt⇒pnktyt
+tanLine(fun,x,pnktxt)⇒tfun
+
+Print "geg. Punkt"
+Print [pnktx,pnkty]
+Print "f(x):"
+Print fun
+Print "f'(x)"
+Print fun1
+Print ""
+Print "f'(x)=(Yp-f(x))/(Xp-x)=Xt"
+
+if two=1
+then
+Print "Xt₁="
+Print pnktxt
+Print "f(x)"
+Print pnktyt
+Print "->Tangente am Punkt Xt₁"
+Print "t₁(x)=" 
+Print tfun 
+Print ""
+Print "Xt₂="
+Print pnktxt2
+Print "f(x)"
+Print pnktyt2
+Print "->Tangente am Punkt Xt₂"
+Print "t₂(x)="
+Print tfun2  
+else
+Print "Xt="
+Print pnktxt
+Print "f(x)"
+Print pnktyt
+Print "->Tangente am Punkt Xt"
+Print "t(x)="
+Print tfun
+ifend
+
+
+SetFolder main
+Print " "
+Print "Zum Menü mit ▸"
+pause

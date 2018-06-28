@@ -1,0 +1,137 @@
+'Vincent Pelz v1.0
+SetFolder tmp
+Local gok1,gok2,wgeg1,wgeg2,zz1,zz2,p1,p2,lsg,sig,ex,w
+SetStandard
+ClrText
+
+Print "μ und σ gesucht   1"
+Print "μ ges. und σ geg. 2"
+Print "μ geg. und σ ges. 3"
+Input w ,"Was ist gesucht?"
+
+ClrText
+Print "Für den 1.Wert"
+Print "P(x≤geg.Wert) 1"
+Print "P(x≥geg.Wert) 2"
+Input gok1,"P(x≤geg.Wert) oder P(x≥geg.Wert)","Für Wert 1"
+ClrText
+Print "Für den 1.Wert "
+Print "geg.Wert"
+Input wgeg1,"Gegebener Wert 1","Wert 1"
+ClrText
+Print "Für den 1.Wert "
+Print "Wahrscheinlichkeit"
+Input p1,"Wahrscheinlichkeit für Wert 1","Wert 1"
+ClrText
+
+'μ und σ gesucht:
+if w =1
+then
+Print "Für den 2.Wert"
+Print "P(x≤geg.Wert) 1"
+Print "P(x≥geg.Wert) 2"
+Input gok2,"P(x≤geg.Wert) oder P(x≥geg.Wert)","Für Wert 2"
+ClrText
+Print "Für den 2.Wert "
+Print "geg.Wert"
+Input wgeg2,"Gegebener Wert 2","Wert 2"
+ClrText
+Print "Für den 2.Wert "
+Print "Wahrscheinlichkeit"
+Input p2,"Wahrscheinlichkeit für Wert 2","Wert 2"
+ClrText
+
+if gok1=1
+then
+invNormCDf("L",p1,1,0)⇒zz1
+elseif gok1=2
+then
+invNormCDf("R",p1,1,0)⇒zz1
+ifend
+
+if gok2=1
+then
+invNormCDf("L",p2,1,0)⇒zz2
+elseif gok2=2
+then
+invNormCDf("R",p2,1,0)⇒zz2
+ifend
+
+solve({(wgeg1-ex)/sig=zz1,(wgeg2-ex)/sig=zz2},{sig,ex})⇒lsg
+min(getRight(lsg)×{1,1000})⇒sig
+max(getRight(lsg)×{1,1000})⇒ex
+
+SetDecimal
+ClrText
+Print "Lösungsweg"
+Print "Φ(Z₁)=geg.Wahrscheinlichkeit 1"
+Print "-> invNormCDf"
+Print "Z₁=(Wert1-μ)/σ="
+Print zz1
+Print "Φ(Z₂)=geg.Wahrscheinlichkeit 2"
+Print "-> invNormCDf"
+Print "Z₂=(Wert2-μ)/σ="
+Print zz2
+Print "Gleichungssystem:"
+Print "| Z₁=((Wert1-μ)/σ)"
+Print "‖ Z₂=((Wert2-μ)/σ)"
+Print "Weiter mit ▸"
+pause
+ClrText
+Print "μ="
+Print ex/1000
+Print "σ="
+Print sig
+  
+'μ gesucht und σ gegeben:  
+elseif w=2
+then
+Print "σ=?"
+Input sig,"σ=","σ=?"
+ClrText
+if gok1=1
+then
+invNormCDf("L",p1,1,0)⇒zz1
+elseif gok1=2
+then
+invNormCDf("R",p1,1,0)⇒zz1
+ifend
+SetDecimal
+Print "Φ(Z)=geg.Wahrscheinlichkeit"
+Print "(-> invNormCDf)"
+Print "Z="
+Print zz1
+Print "Z=(Wert-μ)/σ ->solve"
+Print "μ="
+min(getRight(solve((wgeg1-x)/sig=zz1)))⇒lsg
+Print lsg
+
+'μ gegeben und σ gesucht:
+elseif w=3
+then
+Print "μ=?"
+Input ex,"μ=","μ=?"
+ClrText
+if gok1=1
+then
+invNormCDf("L",p1,1,0)⇒zz1
+elseif gok1=2
+then
+invNormCDf("R",p1,1,0)⇒zz1
+ifend
+SetDecimal
+Print "Φ(Z)=geg.Wahrscheinlichkeit"
+Print "(-> invNormCDf)"
+Print "Z="
+Print zz1
+Print "Z=(Wert-μ)/σ ->solve"
+Print "σ="
+min(getRight(solve((wgeg1-ex)/x=zz1)))⇒lsg
+Print lsg
+
+
+ifend
+Print ""
+Print "Weiter mit ▸"
+pause
+SetFolder main

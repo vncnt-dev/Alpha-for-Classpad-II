@@ -1,0 +1,392 @@
+'Vincent Pelz v1.0
+SetFolder tmp
+Local px,py,pz,p1,p2,p3,p4,vekab,vekad,vekbc,vekdc,wDAB,wABC,wBCD,wCDA,wABDC,wADBC,lab,lad,ldc,lbc,umf,Avier,debugw,loop,quader,raute,parall,trapab,trapad,drache1,drache2,hatvar,expo
+SetStandard
+ClrText
+
+Print "Gib die Punkte an "
+Print "Beachte die Reihenfolge A-B-C-D"
+Print " "
+
+ 
+Print "4. D-----C 3."
+Print "   |     |"
+Print "   |     |"
+Print "1. A-----B 2."
+
+Input px,"x","Punkt A"
+Input py,"y","Punkt A"
+Input pz,"z","Punkt A"
+[[px],[py],[pz]]⇒p1
+
+Input px,"x","Punkt B"
+Input py,"y","Punkt B"
+Input pz,"z","Punkt B"
+[[px],[py],[pz]]⇒p2
+
+Input px,"x","Punkt C"
+Input py,"y","Punkt C"
+Input pz,"z","Punkt C"
+[[px],[py],[pz]]⇒p3
+
+Input px,"x","Punkt D"
+Input py,"y","Punkt D"
+Input pz,"z","Punkt D"
+[[px],[py],[pz]]⇒p4
+
+ClrText
+Print "Besitzten die Koordinaten einen"
+Print "Parameter?"
+Print "Nein:      1"
+Print "Ja  :      2"
+Input hatvar,"Besitzten die Koordinaten einen Parameter?"
+'Einige Funktionen nur ohne Parameter möglich
+ClrText
+
+'Vektoren berechnen:
+p2-p1⇒vekab
+p3-p4⇒vekdc
+p4-p1⇒vekad
+p3-p2⇒vekbc
+
+'Länge der Vektoren berechnen:
+norm(vekab)⇒lab
+norm(vekbc)⇒lbc
+norm(vekdc)⇒ldc
+norm(vekad)⇒lad
+
+'Winkel zwischen Vektoren berechnen: 
+cos⁻¹(-0.5×((norm(p2-p4))^2-lad^2-lab^2)/(lad×lab))⇒wDAB
+cos⁻¹(0.5×(lbc^2-(norm(p3-p1))^2+lab^2)/(lbc×lab))⇒wABC
+cos⁻¹(0.5×(ldc^2+lad^2-(norm(p3-p1))^2)/(ldc×lad))⇒wCDA
+cos⁻¹(0.5×(ldc^2-(norm(p4-p2))^2+lbc^2)/(ldc×lbc))⇒wBCD
+wABC+wBCD+wCDA+wDAB⇒debugw
+'Winkel gegenüberligender Vektoren für parallelitäts Untersuchung:
+angle(vekab,vekdc)⇒wABDC
+angle(vekad,vekbc)⇒wADBC
+
+'Bestimmung der Art des Vierecks:
+if hatvar=1
+then
+0⇒quader
+0⇒raute
+0⇒parall
+0⇒trapab
+0⇒trapad
+0⇒drache1
+0⇒drache2
+
+If wABDC=0 and wADBC=0
+then
+ 
+if abs(wDAB)=90
+then
+1⇒quader
+else
+if lab=lbc and ldc=lad and lab=lad
+then
+1⇒raute
+else
+1⇒parall
+ifend
+ifend
+
+elseIf wABDC=0 xor wADBC=0
+then
+if wADBC=0
+then
+1⇒trapad
+else
+1⇒trapab
+ifend
+elseif lab=lad and lbc=ldc
+then
+1⇒drache1
+elseif lab≠lbc and ldc=lad
+then
+1⇒drache2
+ifend
+
+ifend
+
+lab+lbc+ldc+lad⇒umf
+norm(crossP(vekab,vekbc)×0.5+crossP(vekdc,vekad)×0.5)⇒Avier
+4⇒loop
+Do
+ClrText
+
+if hatvar=1
+then
+if debugw≠360
+then
+Print "Der Innen-∡ beträgt nicht 360°"
+Print " "
+Print "Bei der Eingabe der Pkt."
+Print "ist ein Fehler aufgetreten"
+Print "ODER"
+Print "das □ hat einen ∡>180°"
+Print "Beim ∡>180°wird der kleinere"
+Print "∡ angezeigt; (360°-Winkel)"
+Print "Der berechnete Flächeninhalt ist" 
+Print "dann Fehlerhaft"
+Print " "
+Print "Weiter mit ▸"
+pause
+ifend
+ClrText
+ifend
+
+ 'Ausgabe Ergebnisse,  
+if loop=1 or loop=4
+then
+SetDecimal
+ClrText
+Print "Gegebene Punkte:"
+Print p1
+Print p2
+Print p3
+Print p4
+Print "------------"
+Print "AB __ ="
+Print vekab
+Print "Betrag"
+print lab
+Print "------------"
+
+Print "BC ] ="
+Print vekbc
+Print "Betrag"
+print lbc
+print "------------"
+
+Print "DC ⁻⁻ ="
+Print vekdc
+Print "Betrag"
+print ldc
+print "------------"
+
+Print "AD [ ="
+Print vekad
+Print "Betrag"
+print lad
+Print "Weiter mit ▸"
+pause
+ifend
+
+if loop=2 or loop=4
+then
+ClrText
+Print "Winkel ABC ∡"
+Print wABC
+Print "Winkel BCD ∡"
+print wBCD
+Print "Winkel CDA ∡"
+print wCDA
+Print "Winkel DAB ∡"
+print wDAB
+
+if hatvar=1
+then
+Print "AB‖DC?"
+if sin(wABDC)=0
+then
+Print "ja"
+else
+Print "nein, Abweichung:∡"
+Print wABDC
+ifend
+print "AD‖BC?"
+if sin(wADBC)=0
+then
+Print "ja"
+else
+Print "nein, Abweichung:∡"
+Print wADBC
+ifend
+ifend
+Print "Weiter mit ▸"
+pause
+ifend
+
+
+if loop=3 or loop=4
+then
+ClrText
+print "U=|AB|+|BC|+|DC|+|AD|="
+print umf
+print "A=0.5*AB×BC+0.5*DC×AD="
+print Avier
+if hatvar=1
+then
+Print "----------------------"
+Print "Art des Vierecks - Vorschlag"
+Print "!Sinnhaftigkeit überprüfen!"
+Print " "
+if quader=1
+then
+Print "Quadrat"
+Print "Da: AB‖DC,AD‖BC,∡DAB=90°"
+ElseIf  raute=1
+then
+print "Rombus/Raute"
+Print "Da: AB‖DC,AD‖BC,∡DAB≠90°"
+Print "und alle Seiten = lang"
+ElseIf parall=1
+then
+Print "Parallelogramm"
+Print "Da: AB‖DC,AD‖BC,∡DAB≠90°"
+Print "Nicht alle Seiten = lang" 
+elseif trapab=1
+then
+print "Trapez"
+Print "Da: AB‖DC aber AD∦BC"
+elseif trapad=1
+then
+print "Trapez"
+Print "Da: AB∦DC aber AD‖BC"
+elseif drache1=1
+then 
+print "Drachenviereck"
+print "|AB|=|AD| und |DC|=|BC|"
+Print "aber AB∦DC,AD∦BC"
+elseif drache2=1
+then
+print "Drachenviereck"
+Print "|AD|=|DC| und |AB|=|BC|"
+Print "aber AB∦DC,AD∦BC"
+else
+Print "Unregelmäßiges Viereck" 
+Print "Da: AB∦DC,AD∦BC"
+Print "und" 
+Print "weder |AB|=|AD|und|DC|=|BC|" 
+Print "noch |AD|=|DC|und|AB|=|BC|" 
+Print "(⇒Auch kein Drachenviereck)"
+IfEnd
+ifend
+
+Print ""
+Print "Menü/Ergebnisse wiederholen ▸"
+pause
+ifend
+
+'Ergebnisse exportieren (in Main Ordner):
+if loop=5
+then
+Lbl export
+ClrText
+Print "Vektoren Alle:5"
+Print "AB:1 BC:2 DC:3 AD:4"
+Print "Beträge Alle: 10"
+Print "AB:6 BC:7 DC:8 AD:9"
+Print "Winkel Alle:15"
+Print "ABC:11 BCD:12 CDA:13 DAB:14"
+Print "Eigenschaften Viereck Alle:18 "
+Print "U:16 A:17"
+print "Alle Variablen exportiern 19"
+Print "Alte Exporte löschen 20"
+
+'0 zum verlassen!!
+Input expo,"Welche Var soll exportiert werden","!Immer nur eine Nummer!--0 zum verlassen!!"
+ClrText
+if expo=20
+then
+DelVar AB,BC,DC,AD,WinkABC,WinkBCD,WinkCDA,WinkDAB,U,A,ABlaenge,BClaenge,DClaenge,ADlaenge
+ifend
+
+if expo=1 or expo=5 or expo=19
+then 
+vekab⇒AB
+Print "AB wurde exportiert"
+ifend 
+if expo=2 or expo=5 or expo=19
+then 
+vekbc⇒BC
+Print "BC wurde exportiert"
+ifend 
+if expo=3 or expo=5 or expo=19
+then 
+vekdc⇒DC
+Print "DC wurde exportiert"
+ifend 
+if expo=4 or expo=5 or expo=19
+then 
+vekad⇒AD
+Print "AD wurde exportiert"
+ifend 
+
+if expo=6 or expo=10 or expo=19
+then 
+lab=ABlaenge
+Print "Betrag von AB wurde exportiert"
+ifend
+if expo=7 or expo=10 or expo=19
+then 
+lbc=BClaenge
+Print "Betrag von BC wurde exportiert"
+ifend
+if expo=8 or expo=10 or expo=19
+then 
+ldc=DClaenge
+Print "Betrag von DC wurde exportiert"
+ifend
+if expo=9 or expo=10 or expo=19
+then 
+lad=ADlaenge
+Print "Betrag von AD wurde exportiert"
+ifend
+
+if expo=11 or expo=15 or expo=19
+then 
+wABC⇒WinkABC
+Print "Winkel ABC wurde exportiert"
+ifend 
+if expo=12 or expo=15 or expo=19
+then 
+wBCD⇒WinkBCD
+Print "Winkel BCD wurde exportiert"
+ifend
+if expo=13 or expo=15 or expo=19
+then 
+wCDA⇒WinkCDA
+Print "Winkel CDA wurde exportiert"
+ifend
+if expo=14 or expo=15 or expo=19
+then 
+wDAB⇒WinkDAB
+Print "Winkel DAB wurde exportiert"
+ifend
+
+if expo=16 or expo=18 or expo=19
+then 
+umf⇒U
+Print "U wurde exportiert"
+ifend
+if expo=17 or expo=18 or expo=19
+then 
+Avier⇒A
+Print "A wurde exportiert"
+ifend
+Print ""
+Print "Weiter mit ▸"
+if expo≠0
+then
+if expo≠20
+then
+pause
+ifend
+goto export
+ifend
+ifend
+
+ClrText
+Print "Punkte+Eigenschaften Seiten 1"
+Print "Winkel                  2"
+Print "Eigenschaften Viereck      3"
+Print "Alles nochmal anzeigen     4"
+Print "Exportieren              5"
+Print "Zurück zum Menü        0"
+
+
+Input loop, "Bitte Wählen"
+LpWhile loop≠0
+SetFolder main

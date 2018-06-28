@@ -1,0 +1,21 @@
+'Vincent Pelz v1.0
+SetFolder tmp
+Local P,p,n
+SetDecimal
+ClrText
+
+Print "Gibt nun die geg. Werte ein: "
+Print "Erfolgswahrscheinlichkei p"
+Print "Wahrscheinlichkeit P(x)"
+Input p,"p","Erfolgswahrscheinlichkei p"
+Input P,"P(x)","Wahrscheinlichkeit P(x)"
+
+((ln(1-P))/(ln(1-p)))⇒n
+ClrText
+
+Print "n=(ln(1-P(x)))/(ln(1-p))="
+Print n
+SetFolder main
+Print " "
+Print "Zum Menü mit ▸"
+pause

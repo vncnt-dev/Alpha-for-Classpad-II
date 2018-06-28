@@ -1,0 +1,140 @@
+'Vincent Pelz v1.0
+SetFolder tmp
+Local lor,p,n,pgeg,lsgtmp,irt,lsgtmp2
+SetDecimal
+ClrText
+
+Print "Links(Abl für kl Werte)         1"
+Print "Rechtsseitig (Abl für gr Werte) 2"
+Print "Zweiseitig(Abl für gr/kl Werte) 3"
+Input lor,"Links-,Rechts-,oder Zweiseitig"
+ClrText
+Print "Signifikanzniveau?"
+Input pgeg, "Signifikanzniveau?"
+ClrText
+Print "Anzahl der Versuche?"
+Input n,"Anzahl der Versuche?"
+ClrText
+Print "Trefferwahrscheinlichkeit?"
+input p,"Trefferwahrscheinlichkeit?"
+ClrText
+
+Print "ZFG:xyz ist bin.Verteilt"
+Print "mit n=     und p =     ."
+Print ""
+Print "Anzahl der Versuche n :"
+Print n
+Print "Trefferwahrscheinlichkeit p:"
+Print p
+Print "geg. Signifikanzniveau: α=P(A̅)="
+Print pgeg
+
+'Linksseitig:
+if lor=1
+then
+Print "Linksseitig"
+Print "P(x≤k)≤"
+Print pgeg
+Print "" 
+
+'Rechtsseitig:
+elseif lor=2
+then
+Print "Rechtsseitig"
+Print "P(x≥k)≤"
+Print pgeg
+Print ""
+ 
+'Beidseitig:
+elseif lor=3
+then 
+Print "Beidseitig"
+Print "P(kr≤x≤kl)<"
+Print pgeg
+Print "für Linkeseite"
+Print "P(x≤k)<"
+Print pgeg/2
+Print "für Rechteseite"
+Print "P(x≥k)<"
+Print pgeg/2
+Print ""
+Print "Weiter mit ▸"
+pause
+ClrText
+Ifend
+
+'Linksseitig:
+if lor=1
+then
+invBinomialCDf(pgeg,n,p)⇒lsgtmp
+BinomialCDf(0,lsgtmp-1,n,p)⇒irt
+SetDecimal
+Print "H₀: p₀≥"
+Print p
+Print "Falls vorhanden H₁: p₁<"
+Print p
+Print "Annahmebereich A: von"
+Print lsgtmp
+Print "bis"
+Print n
+Print "Ablehnungsbereich A̅: von 0 bis"
+Print lsgtmp-1
+Print "Irrtumswahrscheinlichkeit α=P(A̅)="
+Print irt
+
+'Rechtsseitig:
+elseif lor=2
+then
+invBinomialCDf(1-pgeg,n,p)⇒lsgtmp
+BinomialCDf(lsgtmp+1,n,n,p)⇒irt
+SetDecimal
+Print "H₀: p₀≤"
+Print p
+Print "Falls vorhanden H₁: p₁>"
+Print p
+Print "Annahmebereich A: von 0 bis"
+Print lsgtmp
+Print "Ablehnungsbereich A̅: von"
+Print lsgtmp+1
+Print "bis"
+Print n
+Print "Irrtumswahrscheinlichkeit α=P(A̅)="
+Print irt
+
+'Beidseitig:  
+elseif lor=3
+then
+SetDecimal
+invBinomialCDf(pgeg/2,n,p)⇒lsgtmp
+Print "Linke Seite"
+Print "H₁: p₁<"
+Print p
+Print "Annahmebereich A: von"
+Print lsgtmp
+Print "bis"
+Print n
+Print "Ablehnungsbereich A̅: von 0 bis"
+Print lsgtmp-1
+Print ""
+Print "Rechte Seite"
+invBinomialCDf(1-pgeg/2,n,p)⇒lsgtmp2
+Print "H₁: p₁>"
+Print p
+Print "Annahmebereich A: von 0 bis"
+Print lsgtmp2
+Print "Ablehnungsbereich A̅: von"
+Print lsgtmp2+1
+Print "bis"
+Print n
+Print ""
+Print "Beidseitig:"
+Print "Annahmebereich A: von"
+Print lsgtmp
+Print "bis"
+Print lsgtmp2
+ifend
+
+Print ""
+Print "Weiter mit ▸"
+pause
+SetFolder main

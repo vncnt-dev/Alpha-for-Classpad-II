@@ -1,0 +1,99 @@
+'Vincent Pelz v1.0
+SetFolder main
+Local lsg,wart,funkt,ufunkt,xs,gra,grb,wsolve,lsgs,vgeg,var,umin,umax
+SetStandard
+ClrText
+Print "Rotation um die X-Achse 1"
+Print " "
+Print "Rotation um die Y-Achse"
+Print "Grenzen auf Y-Achse 2"
+Print " "
+Print "Rotation um die Y-Achse"
+Print "Grenzen auf X-Achse 3"
+Input wart, "Was für ein Rotationskörper?","Bitte Wählen"
+ClrText
+Print "Gib nun die Funktion f(x) ein"
+Print " "
+Print "!Für den Solver muss der!"
+Print "!gesuchte Parameter y sein!"
+Input funkt,"f(x)","Funktion?"
+ClrText
+SetFolder tmp
+Print "Grenzen eingeben"
+Print " "
+Print "!Für den Solver muss der!"
+Print "!gesuchte Parameter y sein!"
+Input gra,"a","Untere Grenze"
+Input grb,"b","Obere Grenze"
+ClrText
+
+Print "Gegebene Funktion"
+Print funkt
+Print "Untere Grenze:"
+Print gra
+Print "Obere Grenze:"
+Print grb 
+
+'Rotation um die X-Achse:
+If wart=1
+then
+π∫((funkt)^2,x,gra,grb)⇒lsg
+Print "Lösungsweg:"
+Print "π×∫(f(x)^2)dx"
+
+'Rotation um die Y-Achse, Grenzen auf Y-Achse:
+elseif wart=2
+then
+ClrText
+'Umkehrfunktion bilden:
+getRight(Solve(xs=funkt))⇒ufunkt
+max(ufunkt)⇒ufunkt
+π∫((ufunkt)^2,xs,gra,grb)⇒lsg
+Print "Umkehrfunktion: f⁻(x)="
+x⇒xs
+Print ufunkt
+Print "π×∫((f⁻(x))²)dx"
+
+'Rotation um die Y-Achse, Grenzen auf Y-Achse:
+elseif wart=3
+then
+ClrText
+π∫(x^2×diff(funkt,x),x,gra,grb)⇒lsg
+Print "π×∫(x^2×f'(x))dx"
+IfEnd
+
+'Ausgabe Ergebnisse:
+Print "----------------"
+Print "Lösungen"
+Print abs(lsg)
+Print "oder als Decimalzahl"
+SetDecimal
+Print abs(lsg)
+
+Print " "
+Print " "
+Print "Solver/Zurück zum Menü mit ▸"
+Pause
+ClrText
+Print "Menü 0"
+Print "Solver 1"
+Input wsolve,"Bitte Wählen","Zurück zum Menü oder Solver?"
+'Solve-Funktion:
+ClrText
+If wsolve=1
+then
+Print "Volumen eingeben"
+Print " "
+Print "Für den Solver muss der"
+Print "gesuchte Paramenter y sein"
+'^Paramenter in den Koordinaten
+Input vgeg,"Volumen?","Welches Volumen hat der Körper"
+
+solve(vgeg=abs(lsg),y)⇒lsgs
+Print "Das Gegebene Volumen:"
+Print vgeg
+Print "Lösung"
+Print lsgs
+Pause
+Ifend
+SetFolder main

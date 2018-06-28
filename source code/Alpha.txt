@@ -1,0 +1,68 @@
+'Vincent Pelz v1.1.0
+
+Do
+ClrText
+
+Print "Geometrie 1"
+Print "Stochastik 2"
+Input subject,"Wahl","Hauptmenü"
+ClrText
+
+If   subject=1 
+Then
+
+ Print "Geometrie"
+ Print " "
+ Print "Tangente durch Pkt     1"
+ Print "Abstand gegeben        2"
+ Print "Viereck               3"
+ Print "Volumenberechnung Spat 4"
+ Print "Rotationskörper         5"
+ Print " "
+ Print "Beenden 0"
+ Input w,"Wahl","Hauptmenü"
+
+ If w=1
+ Then
+  library\tangente()
+ Elseif w=2
+ Then
+  library\abst_geg()
+ Elseif w=3
+ Then
+  library\viereck()
+ Elseif w=4
+ Then
+  library\volumen()
+ Elseif w=5
+ Then
+  library\integral()
+ IfEnd
+
+Elseif subject=2
+Then
+
+ Print "Stochastik"
+ Print " "
+ Print "Mindest n für P(x)    1"
+ Print "δ und μ berechnen     2"
+ Print "Signifikanztest         3"
+ Print " "
+ Print "Beenden 0"
+ Input w,"Wahl","Hauptmenü"
+
+ If w=1
+ Then
+  library\min_n()
+ Elseif w=2
+ Then
+  library\δμ()
+ Elseif w=3
+ Then
+  library\signi()
+ IfEnd
+
+IfEnd
+
+LpWhile w≠0
+SetFolder main
