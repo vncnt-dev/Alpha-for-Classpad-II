@@ -17,7 +17,7 @@ Oder: 4 Punkte
   
 Einige Möglichkeiten für Vektoren:  
 
-![alt text](https://i.imgur.com/DwnXzDO.jpg "Logo Title Text 1")
+![vektoren](https://raw.githubusercontent.com/lVincentPl/Alpha-for-Classpad-II/master/.readme-vektoren.JPG)
   
 Solve-Funktion: Es kann ein Parameter x verwendet werden, der durch die Angabe eines gegebenen  
 V berechnet werden kann.  
