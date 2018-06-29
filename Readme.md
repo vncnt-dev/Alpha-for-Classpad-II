@@ -1,4 +1,4 @@
-**Alpha V1.0 für Casio ClassPad II (FX-CP400)**  
+**Alpha V1.0.1 für Casio ClassPad II (FX-CP400)**  
   
 |Programme:||  
 |------|------|  
@@ -22,9 +22,10 @@ Einige Möglichkeiten für Vektoren:
 Solve-Funktion: Es kann ein Parameter x verwendet werden, der durch die Angabe eines gegebenen  
 V berechnet werden kann.  
   
-2. Rotationskörpers: Ein kleines Programm, was beim Berechnen von Rotationskörpern hilft, indem  
-es beim Wählen der richtigen Formel hilft und z. B. selbstständig die Umkehrfunktion bildet.  
-Solve-Funktion: Ähnlich wie bei 1. aber:! Parameter y!  
+2. Rotationskörpers: Ein kleines Programm, welches beim Berechnen des Volumens  
+von Rotationskörpern hilft. (Berechnung von Umkehrfunktionen,...)  
+Solve-Funktion: Ähnlich wie bei 1. aber: ! Parameter y!  
+  
 3. Viereck  
 Durch die Eingabe der vier Punkte (! Reihenfolge beachten!) wir folgendes berechnet:  
 Vektoren des Vierecks, Winkel, Längen der Vektoren, A, U, Entscheidung welches Viereck  
